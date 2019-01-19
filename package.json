@@ -5,28 +5,40 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "assets:dev": "node ./scripts/generateAssetsClass.js --dev",
+    "assets": "node ./scripts/generateAssetsClass.js"
   },
   "dependencies": {
+    "event-emitter": "^0.3.5",
+    "eventemitter3": "^3.1.0",
+    "p2": "^0.7.1",
+    "phaser-ce": "^2.11.1",
     "pixi.js": "^4.8.5",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
+    "@types/event-emitter": "^0.3.3",
     "@types/pixi.js": "^4.8.6",
+    "@types/webfontloader": "^1.6.29",
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-pwa": "^3.3.0",
     "@vue/cli-plugin-typescript": "^3.3.0",
     "@vue/cli-service": "^3.3.0",
+    "commander": "^2.19.0",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "shelljs": "^0.8.3",
     "typescript": "^3.0.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.5.21",
+    "xml2js": "^0.4.19"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
