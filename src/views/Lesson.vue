@@ -1,17 +1,32 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="lesson">
+    <Player></Player>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import Player from '@/modules/player/Player.vue';
 
 @Component({
   components: {
+    Player,
   },
 })
-export default class Home extends Vue {}
+export default class Lesson extends Vue {
+  constructor(config: any) {
+    super(config);
+  }
+
+  beforeCreate() {
+    this.parseParam();
+  }
+
+  private parseParam() {
+  }
+
+  get lessId(): string {
+    return this.$route.params['lessId'];
+  } 
+}
 </script>

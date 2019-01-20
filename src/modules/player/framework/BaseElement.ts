@@ -1,4 +1,4 @@
 
-export class BaseElment {
+export class BaseElment extends Phaser.GameObjects.GameObject {
 
 }

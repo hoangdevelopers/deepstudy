@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Navigation from './views/Navigation.vue';
+import Lesson from './views/Lesson.vue';
 
 Vue.use(Router);
 
@@ -12,6 +14,16 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/samples',
+      name: 'samples',
+      component: Navigation,
+    },
+    {
+      path: '/lesson/:lessId',
+      name: 'lesson',
+      component: Lesson,
     },
     {
       path: '/about',

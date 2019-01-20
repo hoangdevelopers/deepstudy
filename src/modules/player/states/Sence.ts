@@ -1,3 +1,5 @@
-export class Scene extends Phaser.Stage {
+import { BaseSence } from '../framework/BaseSence';
 
+export class Scene extends BaseSence {
+    
 }
