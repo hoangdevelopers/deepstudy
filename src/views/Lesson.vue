@@ -1,17 +1,23 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <LessonTemplate v-bind:component="component"></LessonTemplate>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
+import LessonTemplate from '@/components/templates/LessonTemplate.vue'; // @ is an alias to /src
 @Component({
   components: {
+    LessonTemplate
   },
+  created: function () {
+    (this as any).component = this.$route.params.id;
+  }
 })
-export default class Home extends Vue {}
+
+export default class Lesson extends Vue {
+  public component: string = '';
+  
+}
 </script>

@@ -1,5 +1,4 @@
 import 'p2';
-import 'pixi';
 import 'phaser-ce';
 
 import { SenceManager } from './framework/SenceManager';

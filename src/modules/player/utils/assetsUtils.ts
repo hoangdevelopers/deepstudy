@@ -107,15 +107,15 @@ export class Loader {
     }
 
     private static orderAudioSourceArrayBasedOnSoundExtensionPreference(soundSourceArray: string[]): string[] {
-        let orderedSoundSourceArray: string[] = [];
+        const orderedSoundSourceArray: string[] = [];
 
-        for (const e of this.soundExtensionsPreference) {
-            const sourcesWithExtension: string[] = soundSourceArray.filter((el) => {
-                return (el.substring(el.lastIndexOf('.') + 1, el.length) === this.soundExtensionsPreference[e]);
-            });
+        // for (const e of this.soundExtensionsPreference) {
+        //     const sourcesWithExtension: string[] = soundSourceArray.filter((el) => {
+        //         return (el.substring(el.lastIndexOf('.') + 1, el.length) === this.soundExtensionsPreference[e]);
+        //     });
 
-            orderedSoundSourceArray = orderedSoundSourceArray.concat(sourcesWithExtension);
-        }
+        //     orderedSoundSourceArray = orderedSoundSourceArray.concat(sourcesWithExtension);
+        // }
 
         return orderedSoundSourceArray;
     }
@@ -230,9 +230,9 @@ export class Loader {
     private static loadScripts() {
         const allScripts = (Assets.Scripts as any);
 
-        for (const script of Assets.Scripts) {
-            this.game.load.script(allScripts[script].getName(), allScripts[script].getJS());
-        }
+        // for (const script of Assets.Scripts) {
+        //     this.game.load.script(allScripts[script].getName(), allScripts[script].getJS());
+        // }
     }
 
     private static loadShaders() {
