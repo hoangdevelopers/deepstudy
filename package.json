@@ -42,7 +42,6 @@
     "xml2js": "^0.4.19"
   },
   "gitHooks": {
-    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.ts": [

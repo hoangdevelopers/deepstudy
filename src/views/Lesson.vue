@@ -1,17 +1,24 @@
 <template>
   <div class="lesson">
-    <Player></Player>
+    <component v-bind:is="template"></component>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Player from '@/modules/player/Player.vue';
+import EnglishConversation  from '../components/templates/EnglishConversation/EnglishConversation.vue';
+import EnglishPronunciation from '../components/templates/EnglishPronunciation/EnglishPronunciation.vue';
+import MathDrag  from '../components/templates/MathDrag/MathDrag.vue';
 
 @Component({
   components: {
-    Player,
+    EnglishConversation,
+    EnglishPronunciation,
+    MathDrag
   },
+  created: function () {
+    (this as any).component = this.$route.params.id;
+  }
 })
 export default class Lesson extends Vue {
   constructor(config: any) {
@@ -26,7 +33,12 @@ export default class Lesson extends Vue {
   }
 
   get lessId(): string {
-    return this.$route.param.lessId];
-   
+    return this.$route.params['lessId'];
+  }
+
+  get template(): string {
+    return this.lessId;
+  }
+
 }
 </script>

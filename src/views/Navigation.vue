@@ -11,16 +11,16 @@
 <template>
   <div class="navigation">
     <ul>
-      <router-link tag="li" to="/lesson/1">
+      <router-link tag="li" to="/lesson/EnglishConversation">
         <a>English conversation</a>
       </router-link>
-      <router-link tag="li" to="/lesson/2">
+      <router-link tag="li" to="/lesson/EnglishConversation">
         <a>English pronunciation</a>
       </router-link>
-      <router-link tag="li" to="/lesson/3">
+      <router-link tag="li" to="/lesson/EnglishConversation">
         <a>Math drag 1</a>
       </router-link>
-      <router-link tag="li" to="/lesson/4">
+      <router-link tag="li" to="/lesson/EnglishConversation">
         <a>Math drag 2</a>
       </router-link>
     </ul>
