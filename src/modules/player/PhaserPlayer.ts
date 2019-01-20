@@ -7,9 +7,9 @@ import { SenceManager } from './framework/SenceManager';
 import { Boot } from './states/Boot';
 import { Preloader } from './states/Preloader';
 
-function parseConfig(preConfig: GameConfig): GameConfig{
+function parseConfig(preConfig: GameConfig): GameConfig {
     const postConfig = {
-        ...preConfig
+        ...preConfig,
     };
     return postConfig;
 }

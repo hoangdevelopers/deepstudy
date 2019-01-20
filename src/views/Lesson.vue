@@ -18,7 +18,7 @@ export default class Lesson extends Vue {
     super(config);
   }
 
-  beforeCreate() {
+  public beforeCreate() {
     this.parseParam();
   }
 
@@ -26,7 +26,7 @@ export default class Lesson extends Vue {
   }
 
   get lessId(): string {
-    return this.$route.params['lessId'];
-  } 
+    return this.$route.param.lessId];
+   
 }
 </script>

@@ -1,24 +1,24 @@
 
 export class BaseSence extends Phaser.Scene {
-    backgroundCam: Phaser.Cameras.Scene2D.Camera | undefined;
-    bg: Phaser.GameObjects.Graphics | undefined;
+    public backgroundCam: Phaser.Cameras.Scene2D.Camera | undefined;
+    public bg: Phaser.GameObjects.Graphics | undefined;
 
     constructor(config: SceneConfig) {
         super(config);
     }
-    
-    preload() {
+
+    public preload() {
     }
 
-    init() {
+    public init() {
         this.initBg();
     }
-    
-    create() {
+
+    public create() {
 
     }
 
-    update() {
+    public update() {
     }
 
     private initBg() {

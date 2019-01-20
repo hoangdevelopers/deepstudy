@@ -10,7 +10,7 @@ import { PhaserPlayer  } from './PhaserPlayer';
 
 @Component({
   components: {
- 
+
   },
 })
 export default class Player extends Vue {
