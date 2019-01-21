@@ -5,6 +5,8 @@ import { SenceManager } from './framework/SenceManager';
 import { Boot } from './states/Boot';
 import { Preloader } from './states/Preloader';
 import { Scene } from './states/Sence';
+import { BaseAdapter } from './framework/BaseAdapter';
+import { BaseSence } from './framework/BaseSence';
 
 function parseConfig(preConfig: GameConfigWithScenses): GameConfigWithScenses {
     const postConfig = {
@@ -14,15 +16,15 @@ function parseConfig(preConfig: GameConfigWithScenses): GameConfigWithScenses {
 }
 
 interface GameConfigWithScenses extends GameConfig {
-    adapter: any;
+    adapter: BaseAdapter;
     startScene: string;
-    scenes: any[];
+    scenes: BaseSence[];
 }
 
 export class PhaserPlayer extends Phaser.Game {
     options: GameConfigWithScenses;
     scenes!: Map<string, any>;
-    adapter: any;
+    adapter: BaseAdapter;
 
     constructor(config: GameConfigWithScenses) {
         config = parseConfig(config);

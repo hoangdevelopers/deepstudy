@@ -30,7 +30,7 @@ export class SimpleDragSprite extends BaseElment {
     private createDropSprite() {
         //  Just a visual display of the drop zone
         this.graphics = this.scene.add.graphics();
-        this.add(this.graphics);
+        // this.add(this.graphics);
         this.graphics.lineStyle(2, 0xffff00);
         this.graphics.strokeRect(this.zone.x - this.zone.input.hitArea.width / 2, this.zone.y - this.zone.input.hitArea.height / 2, this.zone.input.hitArea.width, this.zone.input.hitArea.height);
 
@@ -38,7 +38,7 @@ export class SimpleDragSprite extends BaseElment {
 
     private createDragSprite() {
         this.drag = this.scene.add.image(0, 0, 'puppy').setInteractive();
-        this.add(this.drag);
+        // this.add(this.drag);
         this.scene.input.setDraggable(this.drag, 1);
     }
 

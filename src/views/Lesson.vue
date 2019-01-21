@@ -1,6 +1,7 @@
 <template>
   <div class="lesson">
-    <component v-bind:is="template" v-bind:lesson="lesson"></component>
+    {{template}}
+    <component v-bind:is="component" v-bind:lesson="lesson"></component>
   </div>
 </template>
 
@@ -99,22 +100,18 @@ const MOCKUP_LESSONS = new Map<string, any>([[
     EnglishPronunciation,
     MathDrag
   },
-  created: function () {
-    (this as any).component = this.$route.params.id;
-  }
 })
 export default class Lesson extends Vue {
+  component: any;
   constructor(config: any) {
     super(config);
   }
 
-<<<<<<< Updated upstream
   public created() {
-    
-=======
+     this.component = this.$route.params.lessId;
+  } 
   public beforeCreate() {
     // this.parseParam();
->>>>>>> Stashed changes
   }
 
   parseParam() {
