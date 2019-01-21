@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { PhaserPlayer  } from './PhaserPlayer';
 
 @Component({
@@ -14,6 +14,8 @@ import { PhaserPlayer  } from './PhaserPlayer';
   },
 })
 export default class Player extends Vue {
+  @Prop() private adapter!: any;
+
   public playerOption: any;
   public player: any;
 
@@ -36,6 +38,7 @@ export default class Player extends Vue {
         type: Phaser.AUTO,
         width: 800,
         height: 600,
+        adapter: this.adapter
     };
   }
 
