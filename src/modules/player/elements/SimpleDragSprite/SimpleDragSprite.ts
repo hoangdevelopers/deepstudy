@@ -22,7 +22,7 @@ export class SimpleDragSprite extends BaseElment {
     private createDropZone() {
         //  A drop zone
         this.zone = this.scene.add.zone(500, 300, 300, 300).setRectangleDropZone(300, 300);
-        this.add(this.zone);
+        // this.add(this.zone);
 
         this.createDropSprite();
     }

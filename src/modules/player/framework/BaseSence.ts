@@ -24,7 +24,7 @@ export class BaseSence extends Phaser.Scene {
     public update() {
     }
 
-    private initBg() {
+    public initBg() {
         this.bg = this.add.graphics();
         this.bg.fillStyle(0xffffff, 1);
         this.bg.fillRect(0, 0, this.input.manager.canvas.width, this.input.manager.canvas.height);

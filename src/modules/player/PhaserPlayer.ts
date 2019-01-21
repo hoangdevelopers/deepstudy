@@ -1,6 +1,4 @@
-import 'pixi.js';
-import 'pixi';
-import 'p2';
+import 'phaser';
 
 import { SenceManager } from './framework/SenceManager';
 

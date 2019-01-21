@@ -108,8 +108,13 @@ export default class Lesson extends Vue {
     super(config);
   }
 
+<<<<<<< Updated upstream
   public created() {
     
+=======
+  public beforeCreate() {
+    // this.parseParam();
+>>>>>>> Stashed changes
   }
 
   parseParam() {
