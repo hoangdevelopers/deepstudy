@@ -32,14 +32,14 @@ export class PhaserPlayer extends Phaser.Game {
         this.options = config;
 
         this.adapter = this.options.adapter;
+        this.adapter.setPlayer(this);
+        
         this.scenes = new Map();
         this.scene.add('boot', Boot);
         this.scene.add('preloader', Preloader);
 
         this.createScenses();
-
-        // this.scene.start('boot');
-        this.startScense(this.options.startScene);
+        this.adapter.start();
     }
 
     private createScenses() {

@@ -1,86 +1,75 @@
-import { BaseElment } from '../../framework/BaseElement';
+import { BaseElment, BaseElementConfig } from '../../framework/BaseElement';
+
+export interface SimpleDragSpriteConfig  extends BaseElementConfig {
+    dropbg: string;
+    dragSprite: string;
+    dropActiveBg: string;
+    dropActiveSprite: string;
+    target?: any;
+}
 
 export class SimpleDragSprite extends BaseElment {
     graphics!: Phaser.GameObjects.Graphics;
     zone!: Phaser.GameObjects.Zone;
-    drag!: Phaser.GameObjects.GameObject;
+    dropbg!: Phaser.GameObjects.Image;
+    dropSprite!: Phaser.GameObjects.Image;
+    dropbgActive!: Phaser.GameObjects.Image;
+    dropSpriteActive!: Phaser.GameObjects.Image;
+    config!: SimpleDragSpriteConfig;
+    dragtarget: any;
+
+    constructor(scene: Phaser.Scene, config?: SimpleDragSpriteConfig) {
+        super(scene, config);   
+        this.dragtarget = this.config.target;
+    }
 
     onCreate() {
-        this.createDragSprite();
         this.createDropZone();
     }
 
     affterCreate() {
-        this.scene.input.on('dragstart', this.onDragStart , this);
-        this.scene.input.on('drag', this.onDrag, this);
-        this.scene.input.on('dragenter', this.onDragenter, this);
-        this.scene.input.on('dragleave', this.onDragleave, this);
         this.scene.input.on('drop', this.onDrop, this);
-        this.scene.input.on('dragend', this.onDragend, this);
     }
 
     private createDropZone() {
         //  A drop zone
-        this.zone = this.scene.add.zone(500, 300, 300, 300).setRectangleDropZone(300, 300);
-        this.add(this.zone);
+        this.zone = this.scene.add.zone(200, 400, 320, 200).setRectangleDropZone(300, 200);
+        this.host.add(this.zone);
 
         this.createDropSprite();
     }
 
     private createDropSprite() {
-        //  Just a visual display of the drop zone
-        this.graphics = this.scene.add.graphics();
-        this.add(this.graphics);
-        this.graphics.lineStyle(2, 0xffff00);
-        this.graphics.strokeRect(this.zone.x - this.zone.input.hitArea.width / 2, this.zone.y - this.zone.input.hitArea.height / 2, this.zone.input.hitArea.width, this.zone.input.hitArea.height);
+        this.dropbg = this.scene.add.image(this.zone.x, this.zone.y, this.config.dropbg);
+        this.host.add(this.dropbg);
 
+        this.dropbgActive = this.scene.add.image(this.zone.x, this.zone.y, this.config.dropActiveBg);
+        this.host.add(this.dropbgActive);
+
+        this.dropSpriteActive = this.scene.add.image(this.zone.x, this.zone.y - 80, this.config.dropActiveSprite);
+        this.host.add(this.dropSpriteActive);
+
+        this.dropSpriteActive.setVisible(false);
+        this.dropbgActive.setVisible(false);
     }
 
-    private createDragSprite() {
-        this.drag = this.scene.add.image(0, 0, 'puppy').setInteractive();
-        this.add(this.drag);
-        this.scene.input.setDraggable(this.drag, 1);
-    }
-
-    onDragStart(pointer: any, gameObject: any) {
-        this.scene.children.bringToTop(gameObject);
-    }
-
-    onDrag(pointer: any, gameObject: { x: any; y: any; }, dragX: any, dragY: any) {
-        gameObject.x = dragX;
-        gameObject.y = dragY;
-    }
-
-    onDragenter(pointer: any, gameObject: any, dropZone: any) {
-        this.graphics.clear();
-        this.graphics.lineStyle(2, 0x00ffff);
-        this.graphics.strokeRect(this.zone.x - this.zone.input.hitArea.width / 2, this.zone.y - this.zone.input.hitArea.height / 2, this.zone.input.hitArea.width, this.zone.input.hitArea.height);
-
-    }
-
-    onDragleave(pointer: any, gameObject: any, dropZone: any) {
-        this.graphics.clear();
-        this.graphics.lineStyle(2, 0xffff00);
-        this.graphics.strokeRect(this.zone.x - this.zone.input.hitArea.width / 2, this.zone.y - this.zone.input.hitArea.height / 2, this.zone.input.hitArea.width, this.zone.input.hitArea.height);
-
+    setDragtarget(target: any) {
+        this.dragtarget = target;
     }
 
     onDrop(pointer: any, gameObject: any, dropZone: any) {
+        if( gameObject != this.dragtarget && dropZone != this.zone ) {
+            return;
+        }
+        this.emit('SimpleDragSpriteDrop');
         gameObject.x = dropZone.x;
         gameObject.y = dropZone.y;
 
         gameObject.input.enabled = false;
-    }
-
-    onDragend(pointer: any, gameObject: { x: any; input: { dragStartX: any; dragStartY: any; }; y: any; }, dropped: boolean) {
-        if (!dropped)
-        {
-            gameObject.x = gameObject.input.dragStartX;
-            gameObject.y = gameObject.input.dragStartY;
-        }
-
-        this.graphics.clear();
-        this.graphics.lineStyle(2, 0xffff00);
-        this.graphics.strokeRect(this.zone.x - this.zone.input.hitArea.width / 2, this.zone.y - this.zone.input.hitArea.height / 2, this.zone.input.hitArea.width, this.zone.input.hitArea.height);
+        gameObject.setVisible(false);
+        
+        this.dropbg.setVisible(false);
+        this.dropbgActive.setVisible(true);
+        this.dropSpriteActive.setVisible(true);
     }
 }

@@ -9680,6 +9680,7 @@ declare namespace Phaser {
          * methods into the class.
          */
         class GameObjectFactory {
+            container(x: number, y: number, children?: Phaser.GameObjects.GameObject | Array<Phaser.GameObjects.GameObject>): Phaser.GameObjects.Container;
             /**
              * 
              * @param scene The Scene to which this Game Object Factory belongs.
@@ -11053,6 +11054,11 @@ declare namespace Phaser {
              */
             destroy(): void;
 
+        }
+
+
+        class Container {
+            add(child: Phaser.GameObjects.GameObject | Array<Phaser.GameObjects.GameObject>, index?: number): Container;
         }
 
         /**
@@ -16082,6 +16088,7 @@ declare namespace Phaser {
          * Component. If you do not require animation then you can safely use Images to replace Sprites in all cases.
          */
         class Sprite extends Components.Animation implements Components.Alpha, Components.BlendMode, Components.Depth, Components.Flip, Components.GetBounds, Components.Origin, Components.Pipeline, Components.ScaleMode, Components.ScrollFactor, Components.Size, Components.Texture, Components.Tint, Components.Transform, Components.Visible {
+            setInteractive(): any;
             /**
              * 
              * @param scene The Scene to which this Game Object belongs. A Game Object can only belong to one Scene at a time.
