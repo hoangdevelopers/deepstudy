@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { PhaserPlayer  } from './PhaserPlayer';
+import { BaseAdapter } from '@/modules/player/framework/BaseAdapter';
 
 @Component({
   components: {
@@ -14,19 +15,27 @@ import { PhaserPlayer  } from './PhaserPlayer';
   },
 })
 export default class Player extends Vue {
-  @Prop() private adapter!: any;
+  // @Prop() private adapter!: any;
 
   public playerOption: any;
   public player: any;
+  private _adapter: any;
 
   get hostEl() {
     return this.$refs.host;
   }
-
+  
+  set adapter(adapter: BaseAdapter) {
+    console.log('adapter')
+    this._adapter = adapter;
+  }
+  get adapter(): BaseAdapter {
+    return this._adapter;
+  }
   public mounted() {
     this.initPlayer();
   }
-
+  
   public initPlayer() {
     this.playerOption = this.getPlayerOption();
     this.player = new PhaserPlayer(this.playerOption);
