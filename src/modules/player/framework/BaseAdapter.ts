@@ -1,18 +1,29 @@
 import { BaseSence } from './BaseSence';
 export interface IResourceConfig {
-    type: 'IMAGE' 
+    type: string;
+    src: string;
+    key: string;
 }
 export class BaseAdapter {
     public scenes: BaseSence[];
-    public resources: any[];
-    constructor() {
+    public config: any;
+
+    public startScene: any;
+    constructor(config: any) {
+        this.config = config;
         this.scenes = [];
-        this.resources = [];
     }
     public setScenes(scenes: BaseSence[]) {
         this.scenes.push(...scenes);
     }
-    public setResource(resources: any[]) {
-        this.resources.push(...resources);
+    
+    public setStartScene(startScene: string) {
+        this.startScene = startScene;
+    }
+    setPlayer(player: any){
+
+    }
+    start(){
+
     }
 }

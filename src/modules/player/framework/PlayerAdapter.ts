@@ -1,10 +1,12 @@
 export class playerAdapter {
-     options: any;
-     player!: Phaser.Game;
+     public options: any;
+     public player!: Phaser.Game;
+     public scenes: any[];
 
      constructor(options: any) {
           this.options = options;
-     } 
+          this.scenes = [];
+     }
 
      start() {
           this.player.scene.start('',);

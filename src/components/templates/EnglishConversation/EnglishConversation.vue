@@ -9,10 +9,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Player from '@/modules/player/Player.vue'; // @ is an alias to /src
-import { BaseAdapter } from '@/modules/player/framework/BaseAdapter';
-import { Adapter } from '@/components/templates/EnglishConversation/Adapter';
-import { Scene } from '@/components/templates/EnglishConversation/scenes/Scene';
-
+import { EnglishConversationAdapter } from './EnglishConversationAdapter';
+import { playerAdapter } from '@/modules/player/framework/PlayerAdapter';
 
 @Component({
   components: {
@@ -25,13 +23,19 @@ export default class EnglishConversation extends Vue {
   public created() {
     this.initAdapter();
   }
-  public get adapter(): Adapter{
+  public get adapter(): playerAdapter{
     return this._adapter;
   }
   private initAdapter() {
-    this._adapter = new Adapter();
-    const scene1 = new Scene({key: 'scene1'});
-    this.adapter.setScenes([scene1]);
+    this._adapter = new EnglishConversationAdapter();
+    // const scene1 = new Scene({key: 'scene1'});
+    // this.adapter.setScenes([scene1]);
+    // this.adapter.setResource([{
+    //   type: 'IMAGE',
+    //   src: '../../../assets/logo.png',
+    //   key: 'background'
+    // }]);
+    // this.adapter.setStartScene('scene1');
 
   }
 }

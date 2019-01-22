@@ -7,7 +7,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { PhaserPlayer  } from './PhaserPlayer';
-import { BaseAdapter } from '@/modules/player/framework/BaseAdapter';
 
 @Component({
   components: {

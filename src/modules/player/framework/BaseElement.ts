@@ -16,7 +16,7 @@ export class BaseElment extends Phaser.GameObjects.GameObject {
     id: any;
     config: any;
     host!: Phaser.GameObjects.Container;
-    
+
     constructor(scene: Phaser.Scene, config: any = {}) {
         super(scene, 'group');
         this.config = this.parseConfig(config);
