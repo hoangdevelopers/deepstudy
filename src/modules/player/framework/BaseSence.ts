@@ -7,7 +7,6 @@ export class BaseSence extends Phaser.Scene {
 
     constructor(config: SceneConfig) {
         super(config);
-        this.id = config.key;
     }
     
     public preload() {
