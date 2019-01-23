@@ -1,6 +1,6 @@
 <template>
     <div class="EnglishConversation">
-        <h1>MathDrag</h1>
+        <h1>MathBalance</h1>
         <Player v-bind:adapter="adapter">
         </Player>
     </div>
@@ -10,19 +10,19 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Player from '@/modules/player/Player.vue';
-import  { MathDragAdapter } from './MathDragAdapter';
+import  { MathBalanceAdapter } from './MathBalanceAdapter';
 
 @Component({
   components: {
     Player,
   },
 })
-export default class MathDrag extends Vue {
+export default class MathBalance extends Vue {
   @Prop() private lesson!: any;
-  adapter!: MathDragAdapter;
+  adapter!: MathBalanceAdapter;
 
   created() {
-      this.adapter = new MathDragAdapter();
+      this.adapter = new MathBalanceAdapter();
   }
 }
 </script>

@@ -5,9 +5,13 @@ export interface IResourceConfig {
 export class BaseAdapter {
     public scenes: BaseSence[];
     public resources: any[];
-    constructor() {
+    options: any;
+
+    constructor(config?: any) {
+        this.options = config;
         this.scenes = [];
         this.resources = [];
+  
     }
     public setScenes(scenes: BaseSence[]) {
         this.scenes.push(...scenes);

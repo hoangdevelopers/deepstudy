@@ -7,16 +7,36 @@ import { Preloader } from './states/Preloader';
 import { Scene } from './states/Sence';
 import { BaseAdapter } from './framework/BaseAdapter';
 import { BaseSence } from './framework/BaseSence';
+import { playerAdapter } from './framework/PlayerAdapter';
 
 function parseConfig(preConfig: GameConfigWithScenses): GameConfigWithScenses {
     const postConfig = {
         ...preConfig,
+        physics: {
+            default: 'matter',
+            arcade: {
+                gravity: {
+                    x: 0,
+                    y: 0
+                },
+                forceX: 0,
+                forceY: 0,
+                x: 0,
+                y: 0
+            },
+            matter: {
+                gravity: {
+                    x: 0, 
+                    y: 0
+                }
+            }
+        },
     };
     return postConfig;
 }
 
 interface GameConfigWithScenses extends GameConfig {
-    adapter: BaseAdapter;
+    adapter: playerAdapter;
     startScene: string;
     scenes: BaseSence[];
 }
@@ -24,7 +44,7 @@ interface GameConfigWithScenses extends GameConfig {
 export class PhaserPlayer extends Phaser.Game {
     options: GameConfigWithScenses;
     scenes!: Map<string, any>;
-    adapter: BaseAdapter;
+    adapter: playerAdapter;
 
     constructor(config: GameConfigWithScenses) {
         config = parseConfig(config);
@@ -33,7 +53,7 @@ export class PhaserPlayer extends Phaser.Game {
 
         this.adapter = this.options.adapter;
         this.adapter.setPlayer(this);
-        
+
         this.scenes = new Map();
         this.scene.add('boot', Boot);
         this.scene.add('preloader', Preloader);

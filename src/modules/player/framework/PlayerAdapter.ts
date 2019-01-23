@@ -1,16 +1,14 @@
-export class playerAdapter {
+import { BaseAdapter } from './BaseAdapter';
+
+export class playerAdapter extends BaseAdapter {
      options: any;
      player!: Phaser.Game;
 
-     constructor(options: any) {
-          this.options = options;
-     } 
-
      start() {
-          this.player.scene.start('',);
      }
 
      setPlayer(player: any) {
           this.player = player;
      }
+     
 }

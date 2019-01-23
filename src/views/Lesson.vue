@@ -10,9 +10,14 @@ import { Component, Vue } from 'vue-property-decorator';
 import EnglishConversation  from '../components/templates/EnglishConversation/EnglishConversation.vue';
 import EnglishPronunciation from '../components/templates/EnglishPronunciation/EnglishPronunciation.vue';
 import MathDrag  from '../components/templates/MathDrag/MathDrag.vue';
+import MathBalance  from '../components/templates/MathBalance/MathBalance.vue';
 
-const MOCKUP_LESSONS = new Map<string, any>([[
-    'math-drag-1', 
+const MOCKUP_LESSONS = new Map<string, any>([
+  ['math-drag-1', 
+    {
+      id: 'math-drag-1',
+      type: 'MathDrag',
+    }],  ['math-drag-1', 
     {
       id: 'math-drag-1',
       type: 'MathDrag',
@@ -23,7 +28,8 @@ const MOCKUP_LESSONS = new Map<string, any>([[
   components: {
     EnglishConversation,
     EnglishPronunciation,
-    MathDrag
+    MathDrag,
+    MathBalance
   },
 })
 export default class Lesson extends Vue {

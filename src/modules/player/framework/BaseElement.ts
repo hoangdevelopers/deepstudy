@@ -1,3 +1,4 @@
+import { BaseSence } from './BaseSence';
 
 export interface BaseElementConfig {
     x?: number;
@@ -15,16 +16,24 @@ const DEFAULT_CONFIG = {
 export class BaseElment extends Phaser.GameObjects.GameObject {
     id: any;
     config: any;
-    host!: Phaser.GameObjects.Container;
+    host!: Phaser.GameObjects.GameObject | Phaser.GameObjects.Container | Phaser.GameObjects.Group;
+    scene!: BaseSence;
+
+    static assets: any = {};
     
     constructor(scene: Phaser.Scene, config: any = {}) {
-        super(scene, 'group');
+        super(scene, 'container');
         this.config = this.parseConfig(config);
         this.id = config.id;
 
         this.beboreCreate();
         this.onCreate();
         this.affterCreate();
+        
+        if( config.active ) {
+            this.setActive(true);
+            this.scene.sys.updateList.add(this);
+        }
     }
 
     protected beboreCreate() {
@@ -45,4 +54,8 @@ export class BaseElment extends Phaser.GameObjects.GameObject {
             ...config
         }
     }
+
+    preUpdate() {}
+
+    update() {}
 }
