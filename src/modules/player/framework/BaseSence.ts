@@ -33,6 +33,7 @@ export class BaseSence extends Phaser.Scene {
 
     protected loadAssets() {
         this.loadImages();
+        this.loadSounds();
         this.loadSpriteSheets();
     }
 
@@ -41,6 +42,23 @@ export class BaseSence extends Phaser.Scene {
             for (const img of Object.keys(this.config.assets.images)) {
                 const path = this.config.assets.images[img];
                 this.load.image(img, path);
+            }
+        }
+    }
+    protected loadSounds() {
+        if (this.config && this.config.assets && this.config.assets.sounds) {
+            for (const sound of Object.keys(this.config.assets.sounds)) {
+                const path = this.config.assets.sounds[sound];
+                this.load.audio(sound, path, {
+                    instances: 1,
+                    mute: false,
+                    volume: 1,
+                    rate: 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay: 0
+                });
             }
         }
     }

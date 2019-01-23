@@ -10,6 +10,7 @@
     "assets": "node ./scripts/generateAssetsClass.js"
   },
   "dependencies": {
+    "audio-play": "^2.2.1",
     "event-emitter": "^0.3.5",
     "eventemitter3": "^3.1.0",
     "p2": "^0.7.1",

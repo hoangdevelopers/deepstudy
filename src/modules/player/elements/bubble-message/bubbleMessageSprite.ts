@@ -12,14 +12,12 @@ export interface SimpleDragSpriteConfig extends BaseElementConfig {
 
 export class BubbleMessageSprite extends BaseElment {
     graphics!: Phaser.GameObjects.Graphics;
-    bubbleBg!: Phaser.GameObjects.Container;
 
     constructor(scene: Phaser.Scene, config?: SimpleDragSpriteConfig) {
         super(scene, config);
     }
 
     onCreate() {
-        this.bubbleBg = this.scene.add.container(this.config.x,  this.config.y);
         const bubbleBgLeft = this.scene.add.image(0, 0, this.config.bubbleBgLeft);
         bubbleBgLeft.x = 0;
         bubbleBgLeft.y = bubbleBgLeft.height / 2;
@@ -32,12 +30,10 @@ export class BubbleMessageSprite extends BaseElment {
         bubbleBgRight.y = bubbleBgLeft.height / 2;
         const msg = this.scene.add.text(0, 0, this.config.message, {font: 'bold 30px Arial', fill: '0x000000'});
         msg.y = bubbleBgLeft.height / 4;
-        this.bubbleBg.add(bubbleBgLeft);
-        this.bubbleBg.add(bubbleBgMid);
-        this.bubbleBg.add(bubbleBgRight);
-        this.bubbleBg.add(msg);
-
-
+        this.host.add(bubbleBgLeft);
+        this.host.add(bubbleBgMid);
+        this.host.add(bubbleBgRight);
+        this.host.add(msg);
     }
 
     affterCreate() {

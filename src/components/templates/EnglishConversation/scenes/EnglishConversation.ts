@@ -1,6 +1,6 @@
 import { Scene } from '@/modules/player/states/Sence';
-import { SimpleDragSprite } from '@/modules/player/elements/SimpleDragSprite/SimpleDragSprite';
 import { BubbleMessageSprite } from '@/modules/player/elements/bubble-message/bubbleMessageSprite';
+import { Button } from '@/modules/player/elements/button/button';
 
 export interface IEnglishConversationData {
 }
@@ -8,71 +8,154 @@ export class EnglishConversation extends Scene {
     public static id = '';
     public static data: IEnglishConversationData;
     public bubble!: BubbleMessageSprite;
-    init(config: any) {
+    public recordBtn!: Button;
+    public playBtn!: Button;
+    public chooseCharacter1Btn!: Button;
+    public chooseCharacter2Btn!: Button;
+
+    public init(config: any) {
         super.init(config);
-        console.log(config)
     }
 
-    create() {
+    public create() {
         this.createBackground();
         this.createBubble();
+        this.bubble.shake();
+        this.createRecordButton();
+        this.createPlayBtn();
+        this.createChooseCharacterBtn();
+        if (this.config.options.chooseCharacter) {
+            this.showChooseCharacter();
+            if (this.config.options.characterActiveId == 1) {
+                this.chooseCharacter1Btn.setBtnActive();
+                this.chooseCharacter2Btn.setBtnDeActive();
+            } else {
+                this.chooseCharacter2Btn.setBtnActive();
+                this.chooseCharacter1Btn.setBtnDeActive();
+            }
+        }
+        if (this.config.options.playAudio) {
+            this.playAudio();
+        }
     }
-    createBackground() {
-        const bg = this.add.sprite(this.input.manager.canvas.width / 2, this.input.manager.canvas.height / 2, 'background');
-        // bg.width = this.input.manager.canvas.width;
+    public createRecordButton() {
+        this.recordBtn = new Button(this, (active: any) => {
+            if (active) {
+                this.record();
+            } else {
+                this.stopRecord();
+            }
+        }, {
+                background: 'btnRecord',
+                backgroundPress: 'btnRecordPress',
+                backgroundActive: 'btnRecordActive',
+                x: this.input.manager.canvas.width - 220,
+                y: this.input.manager.canvas.height - 120,
+            });
+        this.recordBtn.hidden();
+    }
+    record() {
+        this.config.options.adapter.record.bind(this.config.options.adapter)();
+    }
+    stopRecord() {
+        this.config.options.adapter.stopRecord.bind(this.config.options.adapter)();
+    }
+    public playAudio() {
+        const music = this.sound.add(this.soundKey);
+        music.play();
+    }
+    public showRecord() {
+        if (!this.recordBtn) {
+            this.createRecordButton();
+        }
+        this.recordBtn.visible();
+        this.recordBtn.blink();
+    }
+    public createBackground() {
+        const bg = this.add.sprite(this.input.manager.canvas.width / 2, this.input.manager.canvas.height / 2, this.backgroundKey);
         bg.setScale(this.input.manager.canvas.width / bg.width, this.input.manager.canvas.height / bg.height);
     }
-    createBubble() {
-        const bubble = new BubbleMessageSprite(this, {
-            message: 'Hi, Ann',
-            bubbleBgLeft: 'bubbleBgLeft',
-            bubbleBgMid: 'bubbleBgMid',
-            bubbleBgRight: 'bubbleBgRight',
-            midWidth: 100,
-            x: this.input.manager.canvas.width / 6,
-            y: this.input.manager.canvas.height / 4,
-        });
-        // const drag1 = this.add.sprite(170, 100, 'background');
-        // drag1.setInteractive();
-        // this.input.setDraggable(drag1, 1);
-
-        // const drop1 = new SimpleDragSprite(this, {
-        //     x: 0,
-        //     dragSprite: 'puppy',
-        //     dropActiveBg: 'box-crumpled',
-        //     dropbg: 'box-flat',
-        //     dropActiveSprite: 'puppy',
-        //     target: drag1
-        // });
-
-        // const arrow1 = this.add.image(200, 230, 'arrow');
-        // const blinkingArrow2 = this.tweens.add({ targets: arrow1, repeat: -1, alpha: 0});
-
-        // drop1.on('SimpleDragSpriteDrop', () => {
-        //     blinkingArrow2.stop();
-        //     arrow1.setVisible(false);
-        // });
+    public get soundKey(): any {
+        throw new Error('Not implement yet');
     }
+    public get backgroundKey(): any {
+        throw new Error('Not implement yet');
+    }
+    public get bubbleData(): any {
+        throw new Error('Not implement yet');
+        // return {
+        //     message: 'Hi, Ann',
+        //     bubbleBgLeft: 'bubbleBgLeft',
+        //     bubbleBgMid: 'bubbleBgMid',
+        //     bubbleBgRight: 'bubbleBgRight',
+        //     midWidth: 100,
+        //     x: this.input.manager.canvas.width / 6,
+        //     y: this.input.manager.canvas.height / 4,
+        // }
+    }
+    public createBubble() {
+        this.bubble = new BubbleMessageSprite(this, this.bubbleData);
+    }
+    public playMyVoid() {
+        this.config.options.adapter.playMyVoid();
+    }
+    public stopMyVoid() {
 
-    createDrag2() {
-        const drag2 = this.add.image(470, 100, 'buffalo');
-        drag2.setInteractive();
-        this.input.setDraggable(drag2, 1);
+    }
+    showPlayBtn() {
+        this.playBtn.visible();
+        this.playBtn.blink();
+    }
+    public createPlayBtn() {
+        this.playBtn = new Button(this, (active: any) => {
+            if (active) {
+                this.playMyVoid();
+            } else {
+                this.stopMyVoid();
+            }
+        }, {
+                background: 'btnPlay',
+                backgroundPress: 'btnPlayPress',
+                backgroundActive: 'btnPlayActive',
+                x: this.input.manager.canvas.width - 120,
+                y: this.input.manager.canvas.height - 120,
+            });
+        this.playBtn.hidden();
+    }
+    public createChooseCharacterBtn() {
+        this.chooseCharacter1Btn = new Button(this, (active: any) => {
+            this.chooseCharacter(1);
+            this.chooseCharacter1Btn.setBtnActive();
+            this.chooseCharacter2Btn.setBtnDeActive();
+        }, {
+                background: 'btnCharacter1',
+                backgroundPress: 'btnCharacter1Active',
+                backgroundActive: 'btnCharacter1Active',
+                x: 100,
+                y: this.input.manager.canvas.height - 120,
+            });
+        this.chooseCharacter1Btn.hidden();
 
-        const arrow2 = this.add.image(500, 230, 'arrow');
-
-        const drop2 = new SimpleDragSprite(this, {
-            x: 300,
-            dragSprite: 'buffalo',
-            dropActiveBg: 'box-hard-crumpled',
-            dropbg: 'box-flat',
-            dropActiveSprite: 'buffalo',
-            target: drag2
-        });
-        const blinkingArrow2 = this.tweens.add({ targets: arrow2, repeat: -1, alpha: 0});
-        drop2.on('SimpleDragSpriteDrop', () => {
-            blinkingArrow2.stop();
-            arrow2.setVisible(false);
-        });
+        this.chooseCharacter2Btn = new Button(this, (active: any) => {
+            this.chooseCharacter(2);
+            this.chooseCharacter2Btn.setBtnActive();
+            this.chooseCharacter1Btn.setBtnDeActive();
+        }, {
+                background: 'btnCharacter2',
+                backgroundPress: 'btnCharacter2Active',
+                backgroundActive: 'btnCharacter2Active',
+                x: 200,
+                y: this.input.manager.canvas.height - 120,
+            });
+        this.chooseCharacter2Btn.hidden();
+    }
+    chooseCharacter(id: number) {
+        this.config.options.adapter.chooseCharacter(id);
+    }
+    showChooseCharacter() {
+        this.chooseCharacter1Btn.visible();
+        this.chooseCharacter1Btn.blink();
+        this.chooseCharacter2Btn.visible();
+        this.chooseCharacter2Btn.blink();
     }
 }

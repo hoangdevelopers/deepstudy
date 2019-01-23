@@ -4,7 +4,6 @@ export class Boot extends BaseSence {
     constructor(opts: any) {
         super(opts);
         // this.scene.start('preloader', opts);
-        console.log('boot', opts)
     }
     init(){
         super.init(this.config);

@@ -5,13 +5,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { PhaserPlayer  } from './PhaserPlayer';
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { PhaserPlayer } from "./PhaserPlayer";
 
 @Component({
-  components: {
-
-  },
+  components: {}
 })
 export default class Player extends Vue {
   @Prop() private adapter!: any;
@@ -27,7 +25,7 @@ export default class Player extends Vue {
   public mounted() {
     this.initPlayer();
   }
-  
+
   public initPlayer() {
     this.playerOption = this.getPlayerOption();
     this.player = new PhaserPlayer(this.playerOption);
@@ -36,12 +34,14 @@ export default class Player extends Vue {
   public getPlayerOption() {
     return {
       parent: this.hostEl,
-        type: Phaser.AUTO,
-        width: 800,
-        height: 600,
-        adapter: this.adapter
+      type: Phaser.AUTO,
+      width: 800,
+      height: 600,
+      adapter: this.adapter,
+      audio: {
+        // disableWebAudio: true
+      }
     };
   }
-
 }
 </script>
