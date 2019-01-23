@@ -1,6 +1,6 @@
 import { playerAdapter } from "@/modules/player/framework/PlayerAdapter";
 import { MathBalance } from './scenes/MathBalance';
-
+declare var HOST: any;
 export class MathBalanceAdapter extends playerAdapter {
   scenes: any[];
 
@@ -19,8 +19,8 @@ export class MathBalanceAdapter extends playerAdapter {
         },
         atlas: {
             main: {
-                img: 'http://localhost:8080/assets/M3-16-1-1(Sample3)/M3-16-1-1.png',
-                json: 'http://localhost:8080/assets/M3-16-1-1(Sample3)/M3-16-1-1.json'
+                img: HOST + '/assets/M3-16-1-1(Sample3)/M3-16-1-1.png',
+                json: HOST + '/assets/M3-16-1-1(Sample3)/M3-16-1-1.json'
             }
         }
       }

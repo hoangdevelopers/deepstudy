@@ -1,5 +1,3 @@
-import { BaseElment } from './BaseElement';
-
 import * as deepmerge from 'deepmerge';
 
 export class BaseSence extends Phaser.Scene {
@@ -136,6 +134,7 @@ export class BaseSence extends Phaser.Scene {
     }
 
     protected combineAssets(assets: any) {
+        assets = assets || {};
         this.assets = deepmerge.default(this.assets, assets);
     }
 

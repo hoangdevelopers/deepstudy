@@ -16,7 +16,7 @@ const DEFAULT_CONFIG = {
 export class BaseElment extends Phaser.GameObjects.GameObject {
     id: any;
     config: any;
-    host!: Phaser.GameObjects.GameObject | Phaser.GameObjects.Container | Phaser.GameObjects.Group;
+    host!: any;
     scene!: BaseSence;
 
     static assets: any = {};

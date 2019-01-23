@@ -1,10 +1,10 @@
 import { BaseElment } from "@/modules/player/framework/BaseElement";
-
+declare var HOST: any;
 const BALANCE_ASSETS = {
   atlas: {
     main: {
-      img: "http://localhost:8080/assets/M3-16-1-1(Sample3)/M3-16-1-1.png",
-      json: "http://localhost:8080/assets/M3-16-1-1(Sample3)/M3-16-1-1.json"
+      img: HOST + "/assets/M3-16-1-1(Sample3)/M3-16-1-1.png",
+      json: HOST + "/assets/M3-16-1-1(Sample3)/M3-16-1-1.json"
     }
   }
 };
@@ -52,13 +52,13 @@ export class Balance extends BaseElment {
   }
 
   private rotateArm(rad: number) {
-    this.arm.setRotation(rad);
+    (<any>this.arm).setRotation(rad);
     this.baskeLeft.setRotation(-rad);
     this.baskeRight.setRotation(-rad);
   }
 
   preUpdate() {
-    this.rotateArm(this.arm.rotation + 0.01);
+    this.rotateArm((<any>this.arm).rotation + 0.01);
   }
 
 

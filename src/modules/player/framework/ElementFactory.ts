@@ -21,7 +21,7 @@ export class ElementFactory {
         if( this.hasChildElement(config) ) {
             for( const subConfig of this.getChildElements(config) ) {
                 const childElement = this.createElement(subConfig);
-                elment.host.add(childElement);
+                // elment.host.add(childElement);
             }
         }
         return elment;
