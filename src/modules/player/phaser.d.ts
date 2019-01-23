@@ -11059,6 +11059,8 @@ declare namespace Phaser {
 
         class Container {
             add(child: Phaser.GameObjects.GameObject | Array<Phaser.GameObjects.GameObject>, index?: number): Container;
+            setScale(x: number, y?: number): Container;
+            setRotation(rad: number): Container;
         }
 
         /**
@@ -39563,6 +39565,7 @@ declare namespace Phaser {
          * @param {Phaser.Scene} scene - [description]
          */
         physics: Phaser.Physics.Arcade.ArcadePhysics;
+        matter?: any;
     }
 
     namespace Sound {

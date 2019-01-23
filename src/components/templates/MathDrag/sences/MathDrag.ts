@@ -51,7 +51,9 @@ export class SimpleDragAndShow extends Scene {
             dropActiveSprite: 'buffalo',
             target: drag2
         });
+
         const blinkingArrow2 = this.tweens.add({ targets: arrow2, repeat: -1, alpha: 0});
+        
         drop2.on('SimpleDragSpriteDrop', () => {
             blinkingArrow2.stop();
             arrow2.setVisible(false);

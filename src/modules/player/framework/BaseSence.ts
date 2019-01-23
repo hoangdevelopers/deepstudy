@@ -1,7 +1,29 @@
+import { BaseElment } from './BaseElement';
+
+import * as deepmerge from 'deepmerge';
+
 export class BaseSence extends Phaser.Scene {
     public backgroundCam: Phaser.Cameras.Scene2D.Camera | undefined;
     public bg: Phaser.GameObjects.Graphics | undefined;
-    public config: any;
+    config: any;
+    assets: any  = {};
+
+    get width() {
+        return this.input.manager.game.canvas.width;
+    }
+
+    get height() {
+        return this.input.manager.game.canvas.height;
+    }
+
+    get centerX() {
+        return this.input.manager.game.canvas.width / 2;
+    }
+
+    get centerY() {
+        return this.input.manager.game.canvas.height / 2;
+    }
+
     public game: any;
     constructor(config: SceneConfig) {
         super(config);
@@ -15,6 +37,7 @@ export class BaseSence extends Phaser.Scene {
     public init(opt: any) {
         this.initBg();
         this.config = opt;
+        this.combineAssets(this.config.assets);
         this.registerInputs();
     }
 
@@ -34,13 +57,13 @@ export class BaseSence extends Phaser.Scene {
     protected loadAssets() {
         this.loadImages();
         this.loadSounds();
-        this.loadSpriteSheets();
+        this.loadAlas();
     }
 
     protected loadImages() {
-        if (this.config && this.config.assets && this.config.assets.images) {
-            for (const img of Object.keys(this.config.assets.images)) {
-                const path = this.config.assets.images[img];
+        if( this.assets && this.assets.images ) {
+            for( const img of Object.keys(this.assets.images) ) {
+                const path = this.assets.images[img];
                 this.load.image(img, path);
             }
         }
@@ -63,11 +86,11 @@ export class BaseSence extends Phaser.Scene {
         }
     }
 
-    protected loadSpriteSheets() {
-        if (this.config && this.config.assets && this.config.assets.spriteSheets) {
-            for (const key of Object.keys(this.config.assets.spriteSheets)) {
-                const img = this.config.assets.spriteSheets[key].img;
-                const json = this.config.assets.spriteSheets[key].json;
+    protected loadAlas() {
+        if( this.assets && this.assets.atlas ) {
+            for( const key of Object.keys(this.assets.atlas) ) {
+                const img = this.assets.atlas[key].img;
+                const json = this.assets.atlas[key].json;
 
                 this.load.atlas(key, img, json);
             }
@@ -110,6 +133,16 @@ export class BaseSence extends Phaser.Scene {
 
     private onDrop(pointer: any, gameObject: any, dropZone: any) {
 
+    }
+
+    protected combineAssets(assets: any) {
+        this.assets = deepmerge.default(this.assets, assets);
+    }
+
+    use(...Elements:  any[]) {
+        for( const El of Elements ) {
+            this.combineAssets(El.assets);
+        }
     }
 
 }

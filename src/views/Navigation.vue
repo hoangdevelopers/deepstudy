@@ -20,8 +20,8 @@
       <router-link tag="li" to="/lesson/MathDrag">
         <a>Math drag 1</a>
       </router-link>
-      <router-link tag="li" to="/lesson/EnglishConversation">
-        <a>Math drag 2</a>
+      <router-link tag="li" to="/lesson/MathBalance">
+        <a>Math balance</a>
       </router-link>
     </ul>
   </div>

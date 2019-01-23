@@ -9,10 +9,10 @@ export class playerAdapter {
      }
 
      start() {
-          this.player.scene.start('',);
      }
 
      setPlayer(player: any) {
           this.player = player;
      }
+     
 }
