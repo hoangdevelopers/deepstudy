@@ -32,7 +32,7 @@ export class Scene extends BaseSence {
     addElement(config: any) {
         const element = this.elementFactory.createElement(config);
         this.add.group(element);
-        
+
         this.elements.set(element.id, element);
     }
 

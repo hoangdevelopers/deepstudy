@@ -1,11 +1,14 @@
 import { BaseSence } from './BaseSence';
 export interface IResourceConfig {
-    type: 'IMAGE' 
+    type: string;
+    src: string;
+    key: string;
 }
 export class BaseAdapter {
     public scenes: BaseSence[];
     public resources: any[];
     options: any;
+    startScene!: string;
 
     constructor(config?: any) {
         this.options = config;
@@ -16,7 +19,14 @@ export class BaseAdapter {
     public setScenes(scenes: BaseSence[]) {
         this.scenes.push(...scenes);
     }
-    public setResource(resources: any[]) {
-        this.resources.push(...resources);
+    
+    public setStartScene(startScene: string) {
+        this.startScene = startScene;
+    }
+    setPlayer(player: any){
+
+    }
+    start(){
+
     }
 }

@@ -3,7 +3,6 @@ import { BaseElment } from './BaseElement';
 import * as deepmerge from 'deepmerge';
 
 export class BaseSence extends Phaser.Scene {
-    public id: any;
     public backgroundCam: Phaser.Cameras.Scene2D.Camera | undefined;
     public bg: Phaser.GameObjects.Graphics | undefined;
     config: any;
@@ -25,10 +24,12 @@ export class BaseSence extends Phaser.Scene {
         return this.input.manager.game.canvas.height / 2;
     }
 
+    public game: any;
     constructor(config: SceneConfig) {
         super(config);
+        this.config = config;
     }
-    
+
     public preload() {
         this.loadAssets();
     }
@@ -79,7 +80,7 @@ export class BaseSence extends Phaser.Scene {
     }
 
     private registerInputs() {
-        this.input.on('dragstart', this.onDragStart , this);
+        this.input.on('dragstart', this.onDragStart, this);
         this.input.on('drag', this.onDrag, this);
         this.input.on('dragenter', this.onDragenter, this);
         this.input.on('dragleave', this.onDragleave, this);
@@ -97,17 +98,16 @@ export class BaseSence extends Phaser.Scene {
     }
 
     private onDragenter(pointer: any, gameObject: any, dropZone: any) {
-      
+
     }
 
     private onDragleave(pointer: any, gameObject: any, dropZone: any) {
 
     }
 
-    
+
     private onDragend(pointer: any, gameObject: { x: any; input: { dragStartX: any; dragStartY: any; }; y: any; }, dropped: boolean) {
-        if (!dropped)
-        {
+        if (!dropped) {
             gameObject.x = gameObject.input.dragStartX;
             gameObject.y = gameObject.input.dragStartY;
         }
