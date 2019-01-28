@@ -27,6 +27,7 @@ export default class Player extends Vue {
   }
 
   public initPlayer() {
+    console.log('aaaaaaaaaaaaa', this.adapter)
     this.playerOption = this.getPlayerOption();
     this.player = new PhaserPlayer(this.playerOption);
   }
@@ -35,8 +36,8 @@ export default class Player extends Vue {
     return {
       parent: this.hostEl,
       type: Phaser.AUTO,
-      width: 800,
-      height: 600,
+      width: 1000,
+      height: 800,
       adapter: this.adapter,
       audio: {
         // disableWebAudio: true
