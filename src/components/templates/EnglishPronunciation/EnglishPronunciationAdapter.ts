@@ -32,10 +32,9 @@ export class EnglishPronunciationAdapter extends playerAdapter {
                     bubbleBgRight: HOST + '/assets/SAMPLE-2-Dialog/Graphic/bubble-right.png',
                 },
                 sounds: {
-                    audio1: HOST + '/assets/SAMPLE-2-Dialog/Audio/Hi, Ann!.mp3',
-                    audio2: HOST + '/assets/SAMPLE-2-Dialog/Audio/Hi, Brian!.mp3',
-                    audio3: HOST + '/assets/SAMPLE-2-Dialog/Audio/Bye, Ann!.mp3',
-                    audio4: HOST + '/assets/SAMPLE-2-Dialog/Audio/See you, Brian!.mp3',
+                },
+                videos: {
+
                 },
                 spriteSheet: {
                 },

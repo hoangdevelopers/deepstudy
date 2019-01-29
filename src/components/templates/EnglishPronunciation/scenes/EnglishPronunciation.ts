@@ -1,6 +1,6 @@
 import { Scene } from '@/modules/player/states/Sence';
 import { Button } from '@/modules/player/elements/button/button';
-
+declare var video_t: any;
 export interface IEnglishPronunciationData {
 }
 export class EnglishPronunciation extends Scene {
@@ -10,12 +10,14 @@ export class EnglishPronunciation extends Scene {
     public playBtn!: Button;
     public chooseCharacter1Btn!: Button;
     public chooseCharacter2Btn!: Button;
-
+    video: any;
     public init(config: any) {
         super.init(config);
     }
 
     public create() {
+
+
         this.createBackground();
         this.createRecordButton();
         this.createPlayBtn();
@@ -33,6 +35,16 @@ export class EnglishPronunciation extends Scene {
         // if (this.config.options.playAudio) {
         //     this.playAudio();
         // }
+        this.video = new video_t(this, 'video-3', 400, 300, 'video-3', 'http://localhost:8080/assets/SAMPLE-1-Phonics/Video/L1_Week01_1.apple.mp4', 640, 400, false, true);
+        // this.video.setScale(0.3, 0.3);
+        this.video.setScale(520/this.video.width, 410/this.video.height);
+        this.video.x = this.video.width * this.video.scaleX / 2 + 145;
+        this.video.y = this.video.height * this.video.scaleY / 2 + 335;
+    }
+    update() {
+        super.update();
+        this.video.update()
+
     }
     public createRecordButton() {
         this.recordBtn = new Button(this, (active: any) => {
