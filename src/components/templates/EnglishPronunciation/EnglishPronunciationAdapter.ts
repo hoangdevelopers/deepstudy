@@ -17,7 +17,7 @@ export class EnglishPronunciationAdapter extends playerAdapter {
             assets: {
                 images: {
                     bg: HOST + '/assets/SAMPLE-1-Phonics/Graphic/bg.png',
-                    btnCharacter1Active: HOST + '/assets/SAMPLE-2-Dialog/Graphic/image_character_Brian.png',
+                    apple: HOST + '/assets/SAMPLE-1-Phonics/Graphic/image_phonics/img_apple.png',
                     btnCharacter2Active: HOST + '/assets/SAMPLE-2-Dialog/Graphic/image_character_Ann.png',
                     btnPlay: HOST + '/assets/Button/btn_play.png',
                     btnPlayPress: HOST + '/assets/Button/btn_play_.png',

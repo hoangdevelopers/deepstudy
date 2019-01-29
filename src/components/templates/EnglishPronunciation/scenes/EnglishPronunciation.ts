@@ -1,6 +1,8 @@
 import { Scene } from '@/modules/player/states/Sence';
 import { Button } from '@/modules/player/elements/button/button';
+import { Karaoke } from '../elements/karaoke';
 declare var video_t: any;
+declare var HOST: any;
 export interface IEnglishPronunciationData {
 }
 export class EnglishPronunciation extends Scene {
@@ -35,11 +37,45 @@ export class EnglishPronunciation extends Scene {
         // if (this.config.options.playAudio) {
         //     this.playAudio();
         // }
-        this.video = new video_t(this, 'video-3', 400, 300, 'video-3', 'http://localhost:8080/assets/SAMPLE-1-Phonics/Video/L1_Week01_1.apple.mp4', 640, 400, false, true);
-        // this.video.setScale(0.3, 0.3);
+        this.initVideo();
+        this.initKaraoke();
+
+    }
+    private initVideo() {
+        this.video = new video_t(this, 'video-1', 400, 300, 'video-1', HOST + '/assets/SAMPLE-1-Phonics/Video/L1_Week01_1.apple.mp4', 640, 400, false, true);
         this.video.setScale(520/this.video.width, 410/this.video.height);
         this.video.x = this.video.width * this.video.scaleX / 2 + 145;
         this.video.y = this.video.height * this.video.scaleY / 2 + 335;
+    }
+    private initKaraoke() {
+        const karaoke = new Karaoke(this, {
+            items: [{
+                type: 'IMG',
+                value: 'apple',
+                x: 700,
+                y: 400,
+                width: 300,
+                height: 250
+            }, {
+                type: 'TEXT',
+                value: 'Aa',
+                x: 600,
+                y: 550,
+                style: {font: 'bold 36px Arial', fill: '0x000000'}
+            }, {
+                type: 'TEXT',
+                value: 'Aa',
+                x: 680,
+                y: 550,
+                style: {font: 'bold 36px Arial', fill: '0x000000'}
+            }, {
+                type: 'TEXT',
+                value: 'apple',
+                x: 760,
+                y: 550,
+                style: {font: 'bold 36px Arial', fill: '0x000000'}
+            }]
+        })
     }
     update() {
         super.update();
