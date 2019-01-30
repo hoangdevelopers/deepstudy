@@ -34,9 +34,9 @@ export default class Player extends Vue {
   public getPlayerOption() {
     return {
       parent: this.hostEl,
-      type: Phaser.CANVAS,
-      width: 800,
-      height: 600,
+      type: Phaser.AUTO,
+      width: 1000,
+      height: 800,
       adapter: this.adapter,
       audio: {
         // disableWebAudio: true

@@ -1,6 +1,6 @@
 import { BaseElment, BaseElementConfig } from '../../framework/BaseElement';
 
-export interface SimpleDragSpriteConfig extends BaseElementConfig {
+export interface BubbleMessageSpriteConfig extends BaseElementConfig {
     message: string;
     bubbleBgLeft: string;
     bubbleBgMid: string;
@@ -13,7 +13,7 @@ export interface SimpleDragSpriteConfig extends BaseElementConfig {
 export class BubbleMessageSprite extends BaseElment {
     graphics!: Phaser.GameObjects.Graphics;
 
-    constructor(scene: Phaser.Scene, config?: SimpleDragSpriteConfig) {
+    constructor(scene: Phaser.Scene, config?: BubbleMessageSpriteConfig) {
         super(scene, config);
     }
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="EnglishConversation">
-        EnglishConversation
+    <div class="EnglishPronunciation">
+        EnglishPronunciation
         <Player v-bind:adapter="adapter"></Player>
     </div>
     
@@ -27,7 +27,7 @@ export default class EnglishPronunciation extends Vue {
     return this._adapter;
   }
   private initAdapter() {
-    this._adapter = new EnglishPronunciationAdapter();
+    this._adapter = new EnglishPronunciationAdapter({});
   }
 }
 </script>

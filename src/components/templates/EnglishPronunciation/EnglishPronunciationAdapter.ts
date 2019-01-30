@@ -22,19 +22,16 @@ export class EnglishPronunciationAdapter extends playerAdapter {
     this.scenes = [EnglishPronunciationScene, EnglishPronunciationWordDraw];
 
     this.recorder = new Recorder({
-      sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
-      bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
-      success: () => {
-        //成功回调函数
-      },
-      error: function(msg: any) {
-        //失败回调函数
-        alert(msg);
-      },
-      fix: function(msg: any) {
-        //不支持H5录音回调函数
-        alert(msg);
-      }
+        sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
+        bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
+        success: () => { //成功回调函数
+        },
+        error: function (msg: any) { //失败回调函数
+            // alert(msg);
+        },
+        fix: function (msg: any) { //不支持H5录音回调函数
+            alert(msg);
+        },
     });
   }
 

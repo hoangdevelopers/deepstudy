@@ -26,8 +26,8 @@ const MOCKUP_LESSONS = new Map<string, any>([
 
 @Component({
   components: {
-    EnglishConversation,
     EnglishPronunciation,
+    EnglishConversation,
     MathDrag,
     MathBalance
   },
