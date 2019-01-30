@@ -75,7 +75,14 @@ export class EnglishPronunciation extends Scene {
                 y: 550,
                 style: {font: 'bold 36px Arial', fill: '0x000000'}
             }]
-        })
+        });
+
+        setTimeout(() => {
+            karaoke.play();
+        }, 1000)
+        setTimeout(() => {
+            karaoke.play();
+        }, 10000)
     }
     update() {
         super.update();
