@@ -22,11 +22,7 @@ export class Scene extends BaseSence {
     }
     init(options: any) {
         super.init(options);
-        // if( Array.isArray(options.elements)) {
-        //     for(const el of options.elements ) {
-        //         this.addElement(el);
-        //     }
-        // }
+        this.onInit();
     }
 
     addElement(config: any) {
@@ -36,5 +32,8 @@ export class Scene extends BaseSence {
         this.elements.set(element.id, element);
     }
 
+    onInit() {
+
+    }
 
 }

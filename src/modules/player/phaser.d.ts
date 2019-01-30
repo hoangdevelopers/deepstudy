@@ -41721,6 +41721,7 @@ declare namespace Phaser {
          * Sprites and other Game Objects get the texture data they need from the TextureManager.
          */
         class Texture {
+            [x: string]: any;
             /**
              * 
              * @param manager A reference to the Texture Manager this Texture belongs to.

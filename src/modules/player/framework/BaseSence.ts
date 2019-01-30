@@ -108,7 +108,10 @@ export class BaseSence extends Phaser.Scene {
         this.children.bringToTop(gameObject);
     }
 
-    private onDrag(pointer: any, gameObject: { x: any; y: any; }, dragX: any, dragY: any) {
+    private onDrag(pointer: any, gameObject: Phaser.GameObjects.GameObject, dragX: any, dragY: any) {
+        if( gameObject.data && gameObject.data.get('custom-drag') ) {
+            return;
+        }
         gameObject.x = dragX;
         gameObject.y = dragY;
     }
