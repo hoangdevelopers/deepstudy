@@ -34,7 +34,7 @@ export default class Player extends Vue {
   public getPlayerOption() {
     return {
       parent: this.hostEl,
-      type: Phaser.AUTO,
+      type: Phaser.CANVAS,
       width: 800,
       height: 600,
       adapter: this.adapter,

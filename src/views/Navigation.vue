@@ -14,7 +14,7 @@
       <router-link tag="li" to="/lesson/EnglishConversation">
         <a>English conversation</a>
       </router-link>
-      <router-link tag="li" to="/lesson/EnglishConversation">
+      <router-link tag="li" to="/lesson/EnglishPronunciation">
         <a>English pronunciation</a>
       </router-link>
       <router-link tag="li" to="/lesson/MathDrag">
