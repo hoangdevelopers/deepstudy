@@ -27,7 +27,6 @@ export default class EnglishPronunciation extends Vue {
     return this._adapter;
   }
   private initAdapter() {
-    console.log('init adap')
     this._adapter = new EnglishPronunciationAdapter({});
   }
 }

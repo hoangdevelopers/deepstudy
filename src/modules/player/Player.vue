@@ -27,7 +27,6 @@ export default class Player extends Vue {
   }
 
   public initPlayer() {
-    console.log('aaaaaaaaaaaaa', this.adapter)
     this.playerOption = this.getPlayerOption();
     this.player = new PhaserPlayer(this.playerOption);
   }

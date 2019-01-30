@@ -9680,6 +9680,8 @@ declare namespace Phaser {
          * methods into the class.
          */
         class GameObjectFactory {
+            dom(x: number, y: number, el?: HTMLElement): any;
+
             container(x: number, y: number, children?: Phaser.GameObjects.GameObject | Array<Phaser.GameObjects.GameObject>): Phaser.GameObjects.Container;
             /**
              * 

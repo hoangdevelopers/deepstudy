@@ -1,48 +1,57 @@
-import { playerAdapter } from '@/modules/player/framework/PlayerAdapter';
-import { EnglishPronunciation } from './scenes/EnglishPronunciation';
+import { playerAdapter } from "@/modules/player/framework/PlayerAdapter";
+import {  EnglishPronunciationScene } from "./scenes/EnglishPronunciation";
+import {  EnglishPronunciationWordDraw } from "./scenes/EnglishPronunciationWordDraw";
 
-declare var HOST: any;
+declare var Recorder: any;
+
+const CONFIG =  {
+    sctions: [
+        {
+            type: 'pronc',
+            sentences: [{
+
+            }]
+        }
+    ]
+};
+
 export class EnglishPronunciationAdapter extends playerAdapter {
-    constructor(opts: any) {
-        super(opts);
-        this.scenes = [EnglishPronunciation];
-        
-    }
-    public start() {
-        this.startScene1({});
-    }
-    public startScene1(data: any) {
-        this.player.scene.bringToTop(EnglishPronunciation.id);
-        this.player.scene.start(EnglishPronunciation.id, {
-            assets: {
-                images: {
-                    bg: HOST + '/assets/SAMPLE-1-Phonics/Graphic/bg.png',
-                    apple: HOST + '/assets/SAMPLE-1-Phonics/Graphic/image_phonics/img_apple.png',
-                    btnCharacter2Active: HOST + '/assets/SAMPLE-2-Dialog/Graphic/image_character_Ann.png',
-                    btnPlay: HOST + '/assets/Button/btn_play.png',
-                    btnPlayPress: HOST + '/assets/Button/btn_play_.png',
-                    btnPlayActive: HOST + '/assets/Button/btn_play_00.png',
-                    btnRecord: HOST + '/assets/Button/btn_record.png',
-                    btnRecordPress: HOST + '/assets/Button/btn_record_.png',
-                    btnRecordActive: HOST + '/assets/Button/btn_record_00.png',
-                    backgroundout: HOST + '/assets/SAMPLE-2-Dialog/Graphic/image_dialog_background2.png',
-                    backgroundin: HOST + '/assets/SAMPLE-2-Dialog/Graphic/image_dialog_background.png',
-                    bubbleBgLeft: HOST + '/assets/SAMPLE-2-Dialog/Graphic/bubble-left.png',
-                    bubbleBgMid: HOST + '/assets/SAMPLE-2-Dialog/Graphic/bubble-mid.png',
-                    bubbleBgRight: HOST + '/assets/SAMPLE-2-Dialog/Graphic/bubble-right.png',
-                },
-                sounds: {
-                },
-                videos: {
+  scenes: any[];
+    recorder: any;
 
-                },
-                spriteSheet: {
-                },
-            },
-            options: {
-                ...data,
-                adapter: this
-            }
-        });
-    }
+  constructor(config?: any) {
+    super(config);
+    this.scenes = [EnglishPronunciationScene, EnglishPronunciationWordDraw];
+
+    this.recorder = new Recorder({
+        sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
+        bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
+        success: () => { //成功回调函数
+        },
+        error: function (msg: any) { //失败回调函数
+            // alert(msg);
+        },
+        fix: function (msg: any) { //不支持H5录音回调函数
+            alert(msg);
+        },
+    });
+  }
+
+  start() {
+    this.player.scene.start(EnglishPronunciationScene.id, {
+      assets: {
+        images: {
+            television: '/assets/SAMPLE 1 Phonics/Graphic/television.png',
+            bg: '/assets/SAMPLE 1 Phonics/Graphic/bg.png',
+            star: '/assets/SAMPLE 1 Phonics/Graphic/image_star.png',
+            airplance: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_Airplane.png',
+            ant: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_ant.png',
+            apple: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_apple.png'
+        },
+        sounds: {},
+        spriteSheet: {
+        }
+      }
+    });
+  }
 }

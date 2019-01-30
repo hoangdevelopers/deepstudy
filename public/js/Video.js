@@ -1,65 +1,60 @@
-/* video typedef. */                                                                                                               
-var video_t=function(scene, id, x, y, texture, file, width, height, loop, mute) {
+/* video typedef. */
+var video_t = function (scene, id, x, y, texture, file, width, height, loop, loadedCb) {
 	/* set texture pointer to new canvas. */
 	scene.textures.createCanvas(texture, width, height);
 	Phaser.GameObjects.Image.call(this, scene, x, y, texture);
 
 	/* gameobject data. */
-	this.id=id;
-	this.x=x;
-	this.y=y;
-	this.width=width;
-	this.height=height;
+	this.id = id;
+	this.x = x;
+	this.y = y;
+	this.width = width;
+	this.height = height;
 
 	/* video data. */
-	this.loaded=false;
-	this.loop=false;
+	this.loaded = false;
+	this.loop = false;
 	if (loop)
-		this.loop=true;
+		this.loop = true;
 
 	/* create video as html5 video element. */
-	this.video=document.createElement('video');
-	this.video.muted=mute;
-	this.video.src=file;
+	this.video = document.createElement('video');
+	this.video.muted = true;
+	this.video.autoplay = true;
+	this.video.src = file;
 
 	/* laziness - should use .call(this, ...) */
-	var _this=this;
+	var _this = this;
 
 	/* hook video event listener into animation. */
-	this.video.addEventListener('loadeddata', function() {
-		this.play();
-		_this.texture.context.drawImage(this, 0, 0);
-		_this.texture.refresh();
-		_this.loaded=true;
+	this.video.oncanplay = () => {
+
+	}
+	this.video.addEventListener('loadeddata', () => {
+		setTimeout(() => {
+			this.texture.context.drawImage(this.video, 0, 0);
+			this.texture.refresh();
+			this.loaded = true;
+			loadedCb();
+		}, 1000)
+
 	});
 	/* loop by playing on 'end' event listener. */
 	if (this.loop) {
-		this.video.addEventListener('ended', function() {
-			this.play();
+		this.video.addEventListener('ended', () => {
+			this.video.play();
 		});
 	}
 
 	/* dragging. */
-	this.setInteractive({draggable:true});
-	this.on('dragstart', function (gameobject) {
-		this.setTint(0xff0000);
-	});
-	this.on('drag', function (gameobject, drag_x, drag_y) {
-		this.x=drag_x;
-		this.y=drag_y;
-	});
-	this.on('dragend', function (gameobject) {
-		this.clearTint();
-	});
-
 	scene.add.existing(this);
-	
+
 	return this;
 }
-video_t.prototype.constructor=video_t;
-video_t.prototype=Object.create(Phaser.GameObjects.Image.prototype);
+video_t.prototype.constructor = video_t;
+video_t.prototype = Object.create(Phaser.GameObjects.Image.prototype);
 
-video_t.prototype.update=function() {
+video_t.prototype.update = function () {
 	/* phaser's update call. */
 	if (this.loaded) {
 		this.texture.context.drawImage(this.video, 0, 0);
@@ -67,4 +62,27 @@ video_t.prototype.update=function() {
 		this.texture.refresh();
 		//this.texture.update();
 	}
+}
+video_t.prototype.time = function () {
+	return this.video.currentTime;
+}
+
+video_t.prototype.play = function () {
+
+	var promise = this.video.play();;
+
+	if (promise !== undefined) {
+		promise.then(_ => {
+			// Autoplay started!
+			this.video.muted = false;
+		}).catch(error => {
+			setTimeout(() => {
+				this.video.play();
+				this.video.muted = false;
+			}, 100)
+			// Autoplay was prevented.
+			// Show a "Play" button so that user can start playback.
+		});
+	}
+
 }
