@@ -1,6 +1,5 @@
 <template>
     <div class="EnglishConversation">
-        EnglishConversation
         <Player v-bind:adapter="adapter"></Player>
     </div>
     

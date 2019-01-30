@@ -1,6 +1,5 @@
 <template>
     <div class="EnglishPronunciation">
-        EnglishPronunciation
         <Player v-bind:adapter="adapter"></Player>
     </div>
     

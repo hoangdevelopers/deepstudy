@@ -1,6 +1,5 @@
 <template>
     <div class="EnglishConversation">
-        <h1>MathDrag</h1>
         <Player v-bind:adapter="adapter">
         </Player>
     </div>

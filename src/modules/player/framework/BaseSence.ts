@@ -112,8 +112,8 @@ export class BaseSence extends Phaser.Scene {
         if( gameObject.data && gameObject.data.get('custom-drag') ) {
             return;
         }
-        gameObject.x = dragX;
-        gameObject.y = dragY;
+        (<any>gameObject).x = dragX;
+        (<any>gameObject).y = dragY;
     }
 
     private onDragenter(pointer: any, gameObject: any, dropZone: any) {
@@ -126,6 +126,9 @@ export class BaseSence extends Phaser.Scene {
 
 
     private onDragend(pointer: any, gameObject: { x: any; input: { dragStartX: any; dragStartY: any; }; y: any; }, dropped: boolean) {
+        if( (<any>gameObject).data && (<any>gameObject).data.get('custom-drag') ) {
+            return;
+        }
         if (!dropped) {
             gameObject.x = gameObject.input.dragStartX;
             gameObject.y = gameObject.input.dragStartY;

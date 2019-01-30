@@ -36,21 +36,22 @@ export class EnglishPronunciationAdapter extends playerAdapter {
   }
 
   start() {
-    this.startDrawing();
-    // this.player.scene.start(EnglishPronunciationScene.id, {
-    //   assets: {
-    //     images: {
-    //         television: '/assets/SAMPLE 1 Phonics/Graphic/television.png',
-    //         star: '/assets/SAMPLE 1 Phonics/Graphic/image_star.png',
-    //         airplance: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_Airplane.png',
-    //         ant: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_ant.png',
-    //         apple: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_apple.png'
-    //     },
-    //     sounds: {},
-    //     spriteSheet: {
-    //     }
-    //   }
-    // });
+    this.player.scene.start(EnglishPronunciationScene.id, {
+      assets: {
+        images: {
+            bg: '/assets/SAMPLE 1 Phonics/Graphic/bg.png',
+            television: '/assets/SAMPLE 1 Phonics/Graphic/television.png',
+            star: '/assets/SAMPLE 1 Phonics/Graphic/image_star.png',
+            airplance: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_Airplane.png',
+            ant: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_ant.png',
+            apple: '/assets/SAMPLE 1 Phonics/Graphic/image_phonics/img_apple.png'
+        },
+        sounds: {},
+        spriteSheet: {
+        }
+      },
+      adapter: this
+    });
   }
 
   startDrawing() {
@@ -70,9 +71,9 @@ export class EnglishPronunciationAdapter extends playerAdapter {
       words: [{
           bg: "Abox",
           paths: [
-            { img: "Abox01", from: { x: -10, y: -125 }, to: { x: 0, y: 100 } },
-            { img: "Abox02",  from: { x: 0, y: 0 }, to: { x: 0, y: 100 }  },
-            { img: "Abox03",  from: { x: 0, y: 0 }, to: { x: 0, y: 100 }  }
+            { img: "Abox01", from: { x: -10, y: -125 }, to: { x: -88, y: 120 } },
+            { img: "Abox02",  from: { x: 13, y: -125 }, to: { x: 106, y: 120 }  },
+            { img: "Abox03",  from: { x: -55, y: 2 }, to: { x: 58, y: 2 }  }
           ]
       }]
     });

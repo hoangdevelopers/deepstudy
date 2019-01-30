@@ -25,6 +25,9 @@ export class EnglishPronunciationScene extends Scene {
 
         this.video = new video_t(this, 'video-1', 400, 300, 'video-1', '/assets/SAMPLE-1-Phonics/Video/L1_Week01_1.apple.mp4', 640, 400, false, () => {
             this.playeVideoWithAnimation();
+            setTimeout(() => {
+                this.config.adapter.startDrawing();
+            }, 6000)
         });
         this.video.setScale(460 / this.video.width, 280 / this.video.height);
         this.video.x = this.video.width * this.video.scaleX / 2 + 210;
