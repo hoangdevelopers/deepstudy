@@ -35,12 +35,15 @@ export class BaseElment extends Phaser.GameObjects.GameObject {
             this.scene.sys.updateList.add(this);
         }
     }
+
     public hidden() {
         (<any>this.host).visible = false;
     }
+
     public visible() {
         (<any>this.host).visible = true;
     }
+
     public shake() {
         const rotation = (<any>this.host).rotation;
         const timeline = this.scene.tweens.timeline({
@@ -61,6 +64,7 @@ export class BaseElment extends Phaser.GameObjects.GameObject {
             }]
         });
     }
+
     public blink() {
         const alpha = (<any>this.host).alpha;
         const timeline = this.scene.tweens.timeline({
@@ -93,6 +97,7 @@ export class BaseElment extends Phaser.GameObjects.GameObject {
             }]
         });
     }
+    
     protected beboreCreate() {
         this.host = this.scene.add.container(this.config.x, this.config.y);
     }

@@ -9239,6 +9239,8 @@ declare namespace Phaser {
          * Instead, use them as the base for your own custom classes.
          */
         class GameObject extends EventEmitter {
+            x: any;
+            y: any;
             /**
              * 
              * @param scene The Scene to which this Game Object belongs.

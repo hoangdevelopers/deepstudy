@@ -20,6 +20,7 @@ export class Scene extends BaseSence {
             elements: ELEMENTS
         });
     }
+
     init(options: any) {
         super.init(options);
         this.onInit();

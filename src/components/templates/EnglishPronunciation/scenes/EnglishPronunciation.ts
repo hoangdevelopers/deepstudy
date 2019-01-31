@@ -9,6 +9,27 @@ export class EnglishPronunciationScene extends Scene {
     phonic!: Phaser.GameObjects.Image;
     recordBtn: any;
     karaoke!: Karaoke;
+    karaokeImg!: Karaoke;
+
+    get sentence(): any {
+        return this.config.sentence;
+    }
+
+    get videoUrl(): any {
+        return this.sentence.video.url;
+    }
+
+    get imageKey(): any {
+        return this.sentence.image.key;
+    }
+
+    get imageDelay(): any {
+        return this.sentence.image.delay;
+    }
+
+    get words(): any {
+        return this.sentence.words;
+    }
 
     init(config: any) {
         super.init(config);
@@ -23,10 +44,10 @@ export class EnglishPronunciationScene extends Scene {
         );
         telebg.setScale(0.7);
 
-        this.video = new video_t(this, 'video-1', 400, 300, 'video-1', '/assets/SAMPLE-1-Phonics/Video/L1_Week01_1.apple.mp4', 640, 400, false, () => {
+        this.video = new video_t(this, 'video-1', 400, 300, 'video-1', this.videoUrl , 640, 400, false, () => {
             this.playeVideoWithAnimation();
             setTimeout(() => {
-                this.config.adapter.startDrawing();
+                this.complete();
             }, 6000)
         });
         this.video.setScale(460 / this.video.width, 280 / this.video.height);
@@ -38,48 +59,39 @@ export class EnglishPronunciationScene extends Scene {
         this.createButton();
         this.initKaraoke();
     }
+
     private initKaraoke() {
         this.karaoke = new Karaoke(this, {
+            x: 600, 
+            y: 550,
+            items: this.words
+        });
+
+        this.karaokeImg = new Karaoke(this, {
+            x: 700,
+            y: 400,
             items: [{
-                type: 'TEXT',
-                value: 'Aa',
-                x: 600,
-                y: 550,
-                style: {font: 'bold 36px Arial', fill: '0x000000'},
-                delay: 1,
-            }, {
-                type: 'TEXT',
-                value: 'Aa',
-                x: 680,
-                y: 550,
-                style: {font: 'bold 36px Arial', fill: '0x000000'},
-                delay: 2,
-            }, {
-                type: 'TEXT',
-                value: 'apple',
-                x: 760,
-                y: 550,
-                style: {font: 'bold 36px Arial', fill: '0x000000'},
-                delay: 4,
-            }, {
                 type: 'IMG',
-                value: 'apple',
-                x: 700,
-                y: 400,
+                value: this.imageKey,
                 width: 300,
                 height: 250,
-                delay: 4,
-            }, ]
-        });
+                delay: this.imageDelay,
+            }]
+        })
     }
+
     update() {
         this.video && this.video.update();
         this.karaoke.updateCurrent(this.video.time());
+        this.karaokeImg.updateCurrent(this.video.time());
     }
+
     playeVideoWithAnimation() {
         this.video.play();
         this.karaoke.play();
+        this.karaokeImg.play();
     }
+
     drawVideo() { }
 
     createButton() {
@@ -106,11 +118,14 @@ export class EnglishPronunciationScene extends Scene {
     record() {
         this.config.options.adapter.record.bind(this.config.options.adapter)();
     }
+
     stopRecord() {
         this.config.options.adapter.stopRecord.bind(this.config.options.adapter)();
     }
+
     public createBackground() {
         const bg = this.add.sprite(this.input.manager.canvas.width / 2, this.input.manager.canvas.height / 2, 'bg');
         bg.setScale(this.input.manager.canvas.width / bg.width, this.input.manager.canvas.height / bg.height);
     }
+
 }

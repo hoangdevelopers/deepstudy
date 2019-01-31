@@ -1,10 +1,18 @@
 import * as deepmerge from 'deepmerge';
+import { playerAdapter } from './PlayerAdapter';
 
+export interface BaseSenceConfig {
+    adapter?: playerAdapter;
+}
 export class BaseSence extends Phaser.Scene {
     public backgroundCam: Phaser.Cameras.Scene2D.Camera | undefined;
     public bg: Phaser.GameObjects.Graphics | undefined;
     config: any;
     assets: any  = {};
+
+    get adapter(): playerAdapter {
+        return this.config.adapter;
+    } 
 
     get width() {
         return this.input.manager.game.canvas.width;
@@ -148,6 +156,10 @@ export class BaseSence extends Phaser.Scene {
         for( const El of Elements ) {
             this.combineAssets(El.assets);
         }
+    }
+
+    complete(data: any = {}) {
+        this.adapter.onSceneComplete(data, this);
     }
 
 }

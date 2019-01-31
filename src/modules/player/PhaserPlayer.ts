@@ -26,7 +26,7 @@ function parseConfig(preConfig: GameConfigWithScenses): GameConfigWithScenses {
                     y: 0
                 }
             }
-        },
+        }
     };
     return postConfig;
 }
