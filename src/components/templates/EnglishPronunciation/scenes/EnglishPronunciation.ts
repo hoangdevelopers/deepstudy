@@ -1,15 +1,24 @@
 import { Scene } from "@/modules/player/states/Sence";
 import { Button } from '@/modules/player/elements/button/button';
 import { Karaoke } from '../elements/karaoke';
+
 declare var video_t: any;
+declare var Recorder: any;
+
+
 export class EnglishPronunciationScene extends Scene {
     static id = "EnglishPronunciationScene";
+    
     television!: Phaser.GameObjects.Group;
     video!: any;
     phonic!: Phaser.GameObjects.Image;
     recordBtn: any;
     karaoke!: Karaoke;
     karaokeImg!: Karaoke;
+    recorder: any;
+    audio!: HTMLAudioElement;
+    pharseActice: number = 0;
+    playBtn!: Button;
 
     get sentence(): any {
         return this.config.sentence;
@@ -31,8 +40,19 @@ export class EnglishPronunciationScene extends Scene {
         return this.sentence.words;
     }
 
-    init(config: any) {
-        super.init(config);
+    onInit() {
+        this.recorder = new Recorder({
+            sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
+            bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
+            success: () => { //成功回调函数
+            },
+            error: function (msg: any) { //失败回调函数
+                // alert(msg);
+            },
+            fix: function (msg: any) { //不支持H5录音回调函数
+                alert(msg);
+            },
+        });
     }
 
     create() {
@@ -44,7 +64,7 @@ export class EnglishPronunciationScene extends Scene {
         );
         telebg.setScale(0.7);
 
-        this.video = new video_t(this, 'video-1', 400, 300, 'video-1', this.videoUrl , 640, 400, false, () => {
+        this.video = new video_t(this, 'video-' + Math.random(), 400, 300, 'video-' + Math.random(), this.videoUrl , 640, 400, false, () => {
             this.playeVideoWithAnimation();
             setTimeout(() => {
                 this.complete();
@@ -58,6 +78,9 @@ export class EnglishPronunciationScene extends Scene {
 
         this.createButton();
         this.initKaraoke();
+
+        this.createPlayBtn();
+        this.createRecordButton();
     }
 
     private initKaraoke() {
@@ -78,6 +101,34 @@ export class EnglishPronunciationScene extends Scene {
                 delay: this.imageDelay,
             }]
         })
+    }
+
+    public createPlayBtn() {
+        this.playBtn = new Button(this, (active: any) => {
+            
+        }, {
+                background: 'btnPlay',
+                backgroundPress: 'btnPlayPress',
+                backgroundActive: 'btnPlayActive',
+                x: this.input.manager.canvas.width - 120,
+                y: this.input.manager.canvas.height - 120,
+            });
+    }
+
+    public createRecordButton() {
+        this.recordBtn = new Button(this, (active: any) => {
+            if (active) {
+                this.record();
+            } else {
+                this.stopRecord();
+            }
+        }, {
+                background: 'btnRecord',
+                backgroundPress: 'btnRecordPress',
+                backgroundActive: 'btnRecordActive',
+                x: this.input.manager.canvas.width - 220,
+                y: this.input.manager.canvas.height - 120,
+            });
     }
 
     update() {
@@ -115,12 +166,28 @@ export class EnglishPronunciationScene extends Scene {
         this.recordBtn.hidden();
     }
 
-    record() {
-        this.config.options.adapter.record.bind(this.config.options.adapter)();
+    startListenAndRepeat() {
+
     }
 
-    stopRecord() {
-        this.config.options.adapter.stopRecord.bind(this.config.options.adapter)();
+    public record() {
+        this.recorder && this.recorder.start && this.recorder.start();
+    }
+
+    public stopRecord() {
+        this.recorder && this.recorder.stop && this.recorder.stop();
+        this.recorder && this.recorder.getBlob && this.recorder.getBlob((blob: any) => {
+            var container = document.querySelector('#audio-container');
+            this.audio = document.createElement('audio');
+            this.audio.src = URL.createObjectURL(blob);
+            this.audio.controls = true;
+            // this.audio.play()
+            container && container.appendChild(this.audio);
+            
+        });
+        if (!this.recorder || !this.recorder.start || !this.recorder.stop || !this.recorder.getBlob) {
+           
+        }
     }
 
     public createBackground() {

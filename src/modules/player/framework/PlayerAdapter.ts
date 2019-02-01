@@ -1,14 +1,16 @@
 import { BaseSence, BaseSenceConfig } from './BaseSence';
+import * as deepmerge from 'deepmerge';
 
 export interface playerAdapterConfig {
+     global?: BaseSenceConfig,
      scenes: BaseSenceConfig[];
 }
 
 export interface playerAdapterSceneConfig {
-     meta: {
+     meta?: {
           type: string
      },
-     assets: any;
+     assets?: any;
 }
 export class playerAdapter {
      public options: any;
@@ -18,7 +20,9 @@ export class playerAdapter {
      config: playerAdapterConfig = { scenes: [] };
 
      get currentSceneConfig(): BaseSenceConfig {
-       const config = this.config.scenes[this.activeScene];
+       const global = this.config.global || {};   
+       const sceneConfig = this.config.scenes[this.activeScene];
+       const config = deepmerge.default(global, sceneConfig);
        config.adapter = this;
        return config;
      }

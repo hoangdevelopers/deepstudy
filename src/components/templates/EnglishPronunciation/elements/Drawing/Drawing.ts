@@ -14,12 +14,17 @@ export class Drawing extends BaseElment {
   bg!: Phaser.GameObjects.Image;
   star!: Phaser.GameObjects.Image;
   dragEnd!: boolean;
+  pathImgs: Phaser.GameObjects.Image[] = [];
   constructor(scene: Phaser.Scene, config: any = {}) {
     super(scene, { ...config, active: true });
   }
 
   get currentPath() : Phaser.GameObjects.Image {
     return this.paths[this.activePath];
+  }
+
+  get currentPathBg() : Phaser.GameObjects.Image {
+    return this.pathImgs[this.activePath];
   }
 
   get currentPathStartX(): number {
@@ -48,6 +53,7 @@ export class Drawing extends BaseElment {
     console.log('before')
     this.words = [];
     this.paths = [];
+    this.pathImgs = [];
     this.activePath = 0;
   }
 
@@ -65,12 +71,14 @@ export class Drawing extends BaseElment {
     word.add(bg);
 
     for (const path of this.config.paths) {
+      const pathBg = this.scene.add.image(0, 0, path.bg);
       const pathImg = this.scene.add.image(0, 0, path.img);
       pathImg.depth = (3);
       this.paths.push(pathImg);
+      this.pathImgs.push(pathBg);
       word.add(pathImg);
+      word.add(pathBg);
     }
-    console.log('path', this.paths)
     const star = this.star = this.scene.add.image(0, 0, "star");
     star.setScale(0.7);
     word.add(star);
@@ -113,6 +121,12 @@ export class Drawing extends BaseElment {
   showPath() {
       this.paths.forEach(path => path.setVisible(false));
       this.currentPath.setVisible(true);
+
+      this.pathImgs.forEach(path => path.setVisible(false));
+      if( this.activePath > 0) {
+        this.currentPathBg.setVisible(true);
+      }
+
       this.star.setPosition(this.currentPathStartX, this.currentPathStartY);
   }
   onCompleted() {
